@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+
+        int left = 0;                 // search ka starting index
+        int right = nums.size() - 1;  // last index
+
+        while(left <= right)          // jab tak search space khatam na ho
+        {
+            int mid = (left + right) / 2;   // beech ka element
+
+            if(nums[mid] == target)         // agar target mil gaya
+            {
+                return mid;                 // uska index return kar do
+            }
+
+            // check karo left side sorted hai ya nahi
+            if(nums[left] <= nums[mid])
+            {
+                // check karo target left range me hai ya nahi
+                if(nums[left] <= target && target < nums[mid])
+                {
+                    right = mid - 1;        // left side search karo
+                }
+                else
+                {
+                    left = mid + 1;         // right side search karo
+                }
+            }
+
+            else   // matlab right side sorted hai
+            {
+                // check karo target right range me hai ya nahi
+                if(nums[mid] < target && target <= nums[right])
+                {
+                    left = mid + 1;         // right side search karo
+                }
+                else
+                {
+                    right = mid - 1;        // left side search karo
+                }
+            }
+        }
+
+        return -1;  // agar target nahi mila
+    }
+};
