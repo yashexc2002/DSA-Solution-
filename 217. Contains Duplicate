@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        
+        // Step 1: Ek unordered_set banaya
+        // Ye unique elements store karega (duplicate allow nahi karta)
+        unordered_set<int> s;
+
+        // Step 2: Array ke har element par loop chala rahe hain
+        for(int num : nums){
+            
+            // Step 3: Check karo kya current element already set me exist karta hai
+            // s.find(num) -> agar mil gaya toh iterator return karega
+            // s.end() -> matlab element nahi mila
+            if(s.find(num) != s.end()){
+                
+                // Agar element mil gaya -> duplicate hai
+                return true;
+            }
+
+            // Step 4: Agar element pehle nahi mila
+            // toh usse set me insert kar do
+            s.insert(num);
+        }
+
+        // Step 5: Agar pura loop chal gaya aur duplicate nahi mila
+        return false;
+    }
+};
