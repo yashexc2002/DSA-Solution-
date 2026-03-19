@@ -1,0 +1,144 @@
+Chalo Yashu, isko ek chhoti si story se samajhte hain 👇
+
+👉 **Story**
+Socho 3 dost hain:
+
+* "flower"
+* "flow"
+* "flight"
+
+Ye teeno ek race start karte hain starting letters se.
+Jab tak sabka starting same hai, tab tak wo saath chalenge.
+Jaise hi kisi ka letter alag ho gaya → race ruk jaati hai.
+
+Yaha:
+
+* f → same
+* l → same
+* o vs i → alag ❌
+
+👉 Answer = "fl"
+
+---
+
+## 1. DSA Topic Used
+
+**String + Horizontal Scanning**
+
+👉 Simple language mein:
+Hum ek string ko base maan ke baaki sab strings ke saath compare karte hain.
+
+---
+
+## 2. Intuition
+
+👉 Idea bahut simple hai:
+
+* Pehle string ko answer maan lo
+* Fir ek-ek karke baaki strings se compare karo
+* Jab tak prefix match karta hai → rakho
+* Jahan mismatch → chhota kar do
+
+---
+
+## 3. Approach
+
+Step by step:
+
+1. First string ko `prefix` maan lo
+2. Loop chalao baaki strings par
+3. Har string ke liye:
+
+   * Check karo kya wo `prefix` se start hoti hai
+   * Agar nahi:
+
+     * prefix ko chhota karte jao (last char hatao)
+4. Jab tak match nahi hota → chhota karte raho
+5. End mein jo bacha → wahi answer
+
+---
+
+## 4. Flowchart Style Explanation
+
+```
+Start
+  ↓
+Take first string as prefix
+  ↓
+Loop through remaining strings
+  ↓
+Check: current string starts with prefix?
+   ↓            ↓
+ Yes            No
+ ↓              ↓
+Move next   Remove last char from prefix
+                 ↓
+          Repeat check
+  ↓
+End loop
+  ↓
+Return prefix
+```
+
+---
+
+## 5. Pseudocode
+
+```
+prefix = strs[0]
+
+for i from 1 to n-1:
+    while strs[i] does not start with prefix:
+        remove last character from prefix
+        if prefix becomes empty:
+            return ""
+
+return prefix
+```
+
+---
+
+## 6. C++ Implementation (with line-by-line explanation)
+
+```cpp
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        
+        string prefix = strs[0];  
+        // pehli string ko prefix maan liya
+
+        for(int i = 1; i < strs.size(); i++) {
+            // baaki sab strings par loop
+
+            while(strs[i].find(prefix) != 0) {
+                // check: kya current string prefix se start ho rahi hai?
+                // agar nahi (i.e. position 0 pe nahi mila)
+
+                prefix = prefix.substr(0, prefix.length() - 1);
+                // prefix ka last character hata diya (chhota kar diya)
+
+                if(prefix == "") {
+                    // agar prefix empty ho gaya
+                    return "";
+                }
+            }
+        }
+
+        return prefix;  
+        // final common prefix
+    }
+};
+```
+
+---
+
+## 🔥 Why This Works
+
+👉 Hum hamesha **safe prefix** maintain kar rahe hain
+👉 Agar koi string match nahi karti → prefix reduce karte hain
+👉 Worst case mein prefix empty ho jayega
+
+---
+
+Agar chaho toh mai iska **vertical scanning** ya **trie approach** bhi sikha deta hoon (interview level 💯).
