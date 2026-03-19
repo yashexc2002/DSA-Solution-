@@ -1,0 +1,161 @@
+Chalo isko ek simple story se samajhte hain 😄
+
+Socho tumhare paas ek **line me khade students** hain (sorted array), aur kuch students same naam wale hain (duplicates). Tumhe sirf **unique students ko aage rakhna hai** aur baaki ko ignore karna hai — bina extra list banaye (in-place).
+
+---
+
+## 1. DSA Topic Used
+
+### ➤ Two Pointer Technique
+
+Simple words me:
+
+* Hum **2 pointers** use karte hain:
+
+  * ek **slow pointer (i)** → unique elements ko place karega
+  * ek **fast pointer (j)** → pura array traverse karega
+
+👉 Ye technique tab useful hoti hai jab:
+
+* array sorted ho
+* ya hume elements shift/compare karne ho efficiently
+
+---
+
+## 2. Intuition
+
+Socho:
+
+```
+nums = [1,1,2]
+```
+
+* Pehla element toh hamesha unique hota hai ✅
+* Ab hum compare karte hain:
+
+  * agar current element ≠ previous unique → new unique mila 🎉
+  * agar same hai → skip karo ❌
+
+👉 Idea:
+
+* Har baar jab naya element mile → usse aage shift karo
+
+---
+
+## 3. Approach
+
+Step by step:
+
+1. Ek pointer `i = 0` (unique elements ke liye)
+2. Loop `j = 1` se start karo (compare karne ke liye)
+3. Har element ke liye:
+
+   * agar `nums[j] != nums[i]`
+
+     * toh `i++`
+     * aur `nums[i] = nums[j]`
+4. End me:
+
+   * total unique elements = `i + 1`
+
+---
+
+## 4. Flowchart Style Explanation
+
+```
+Start
+  ↓
+i = 0
+  ↓
+j = 1 se loop chalu
+  ↓
+Check: nums[j] == nums[i] ?
+   ↓             ↓
+  Yes            No
+  ↓              ↓
+Skip        i++ , nums[i] = nums[j]
+  ↓              ↓
+Next j      Next j
+  ↓
+Loop end
+  ↓
+Return i + 1
+```
+
+---
+
+## 5. Pseudocode
+
+```
+i = 0
+
+for j from 1 to n-1:
+    if nums[j] != nums[i]:
+        i = i + 1
+        nums[i] = nums[j]
+
+return i + 1
+```
+
+---
+
+## 6. C++ Implementation (Line by Line Samajh)
+
+```cpp
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        
+        int i = 0;  
+        // i pointer unique elements ko track karega
+        // initially first element always unique hota hai
+        
+        for(int j = 1; j < nums.size(); j++) {
+            // j pointer pura array traverse karega
+            
+            if(nums[j] != nums[i]) {
+                // agar current element previous unique se different hai
+                
+                i++;  
+                // next position pe move karo
+                
+                nums[i] = nums[j];  
+                // new unique element ko correct position pe daal do
+            }
+        }
+        
+        return i + 1;  
+        // total unique elements (index + 1)
+    }
+};
+```
+
+---
+
+## 🔥 Example Walkthrough
+
+```
+nums = [0,0,1,1,2]
+```
+
+| j | nums[j] | compare with nums[i] | action      | array       |
+| - | ------- | -------------------- | ----------- | ----------- |
+| 1 | 0       | same                 | skip        | [0,0,1,1,2] |
+| 2 | 1       | diff                 | i++ , place | [0,1,1,1,2] |
+| 3 | 1       | same                 | skip        | [0,1,1,1,2] |
+| 4 | 2       | diff                 | i++ , place | [0,1,2,1,2] |
+
+👉 final answer = `i+1 = 3`
+
+---
+
+## 🔑 Why This Works
+
+* Array sorted hai → duplicates paas paas honge
+* Isliye bas adjacent compare karke kaam ho jata hai
+* Extra space use nahi hota → **O(1) space**
+* Time → **O(n)**
+
+---
+
+Agar tum chaho toh mai iska dry run aur detail me kara deta hoon ya fir tum khud try karo aur mai check karunga 💪
