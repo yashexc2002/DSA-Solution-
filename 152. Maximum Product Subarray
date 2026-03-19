@@ -1,0 +1,170 @@
+Chalo bhai, isko ek story ke through samajhte hain 🚀
+
+---
+
+## 🧠 1. DSA Topic Used
+
+**Dynamic Programming (DP) + Kadane’s Algorithm Variation**
+
+👉 Simple language:
+
+* DP ka matlab: “past ka result use karke future solve karna”
+* Yaha hum har index pe 2 cheeze track karenge:
+
+  * **max product till now**
+  * **min product till now**
+
+❓ Min kyun?
+👉 Kyunki negative × negative = positive 😄
+Toh kabhi-kabhi sabse chhota (negative) future me sabse bada ban sakta hai.
+
+---
+
+## 💡 2. Intuition (Story Time)
+
+Socho tum ek game khel rahe ho 🎮
+Tumhare paas numbers ka path hai:
+
+👉 `[2, 3, -2, 4]`
+
+Tum chal rahe ho aur har step pe multiply kar rahe ho.
+
+### Problem kya hai?
+
+* Positive number → good 👍
+* Negative number → flip 😵
+* Zero → reset 🔁
+
+---
+
+### Key Observation:
+
+👉 Agar number **negative** hai:
+
+* max ban sakta hai min se
+* min ban sakta hai max se
+
+Isliye hume dono track karna padega.
+
+---
+
+## 🛠️ 3. Approach (Step-by-step)
+
+1. Initialize:
+
+   * `maxi = nums[0]`
+   * `mini = nums[0]`
+   * `ans = nums[0]`
+
+2. Loop from index 1 to n-1:
+
+3. Agar current number negative hai:
+
+   * swap(maxi, mini)
+
+4. Update:
+
+   * `maxi = max(nums[i], maxi * nums[i])`
+   * `mini = min(nums[i], mini * nums[i])`
+
+5. Update answer:
+
+   * `ans = max(ans, maxi)`
+
+---
+
+## 🔄 4. Flowchart Style Explanation
+
+```
+Start
+  ↓
+Take first element → maxi, mini, ans
+  ↓
+Loop from i = 1 to n-1
+  ↓
+Is nums[i] negative?
+  ├── Yes → swap(maxi, mini)
+  └── No → continue
+  ↓
+Update maxi = max(nums[i], maxi * nums[i])
+Update mini = min(nums[i], mini * nums[i])
+  ↓
+Update ans = max(ans, maxi)
+  ↓
+End Loop
+  ↓
+Return ans
+```
+
+---
+
+## ✍️ 5. Pseudocode
+
+```
+maxi = nums[0]
+mini = nums[0]
+ans = nums[0]
+
+for i from 1 to n-1:
+    if nums[i] < 0:
+        swap(maxi, mini)
+
+    maxi = max(nums[i], maxi * nums[i])
+    mini = min(nums[i], mini * nums[i])
+
+    ans = max(ans, maxi)
+
+return ans
+```
+
+---
+
+## 💻 6. C++ Implementation (Line by Line Explanation)
+
+```cpp
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        
+        int maxi = nums[0];   // current maximum product
+        int mini = nums[0];   // current minimum product
+        int ans = nums[0];    // final answer
+        
+        for(int i = 1; i < nums.size(); i++) {
+            
+            // agar number negative hai, toh swap karo
+            if(nums[i] < 0) {
+                swap(maxi, mini);  
+                // kyunki negative se max aur min flip ho jata hai
+            }
+            
+            // ya toh new start karo ya previous multiply karo
+            maxi = max(nums[i], maxi * nums[i]);  
+            // matlab: ya toh sirf current number lo
+            // ya previous max ko multiply karo
+            
+            mini = min(nums[i], mini * nums[i]);  
+            // same logic, but minimum track kar rahe
+            
+            ans = max(ans, maxi);  
+            // global maximum update
+        }
+        
+        return ans;  // final result
+    }
+};
+```
+
+---
+
+## 🎯 Final समझ
+
+👉 Hum ek hi pass me solve kar rahe
+👉 Har step pe 2 values track kar rahe:
+
+* max (best case)
+* min (worst case but future me best ban sakta)
+
+---
+
+Agar chaho toh next step me mai iska **dry run (table bana ke)** kara deta hoon — usse aur crystal clear ho jayega 🔥
