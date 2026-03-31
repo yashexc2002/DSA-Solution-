@@ -1,0 +1,205 @@
+Great, ye ek classic recursion + backtracking problem hai — **string permutations**. Chalo isko step-by-step samajhte hain, bilkul simple tareeke se.
+
+---
+
+## 1. DSA Topic Used
+
+### 🔹 Recursion + Backtracking
+
+* **Recursion**: Jab ek function khud ko baar-baar call karta hai.
+* **Backtracking**: Har possibility try karna, phir wapas aake doosri try karna.
+
+👉 Simple words:
+Socho tumhare paas letters hain `"abc"`
+Tum har position pe har letter try karte ho → ye hi backtracking hai.
+
+---
+
+## 2. Intuition (Story Style 🧠)
+
+Socho tum ek game khel rahe ho:
+
+Tumhare paas 3 cards hain: `a`, `b`, `c`
+
+Tumhe saare possible orders banana hai.
+
+👉 Tum kya karoge?
+
+* Pehle `a` uthao → baaki bache `bc`
+* Fir `b` uthao → bacha `c`
+* Fir `c` → complete: `"abc"`
+
+Phir wapas jao (backtrack):
+
+* `a` ke baad `c` try karo → `"acb"`
+
+Phir starting pe wapas:
+
+* `b` se start karo → `"bac"`, `"bca"`
+* Phir `c` se → `"cab"`, `"cba"`
+
+👉 Ye tree jaisa structure banata hai.
+
+---
+
+## 3. Approach (Step-by-step)
+
+1. Agar string empty ho jaye → answer print karo
+2. Loop chalao har character pe
+3. Har iteration me:
+
+   * Ek character pick karo
+   * Usko answer me add karo
+   * Remaining string bana ke recursive call karo
+4. Repeat until string empty
+
+---
+
+## 4. Flowchart Style Explanation
+
+```
+Start with "abc"
+
+→ Pick 'a'
+   → Remaining "bc"
+      → Pick 'b'
+         → Remaining "c"
+            → Pick 'c' → PRINT "abc"
+      → Pick 'c'
+         → Remaining "b"
+            → PRINT "acb"
+
+→ Pick 'b'
+   → Remaining "ac"
+      → PRINT "bac", "bca"
+
+→ Pick 'c'
+   → Remaining "ab"
+      → PRINT "cab", "cba"
+```
+
+---
+
+## 5. Pseudocode
+
+```
+function perm(str, ans):
+    if str is empty:
+        print ans
+        return
+
+    for each index i in str:
+        ch = str[i]
+
+        remaining = str without ith character
+
+        perm(remaining, ans + ch)
+```
+
+---
+
+## 6. C++ Implementation (Line-by-line samajh)
+
+```cpp
+void perm(string str , string ans){
+```
+
+👉 Function jo permutations generate karega
+
+* `str` = remaining characters
+* `ans` = jo ab tak ban chuka hai
+
+---
+
+```cpp
+    int n =  str.size();
+```
+
+👉 String ki length nikal rahe hain
+
+---
+
+```cpp
+    if(n==0){
+        cout<<ans<<"\n";
+        return;
+    }
+```
+
+👉 Base case
+
+* Agar kuch bhi characters nahi bache → final permutation mil gaya
+* Print karo aur return
+
+---
+
+```cpp
+    for(int i = 0; i<n; i++){
+```
+
+👉 Har character ko ek baar pick karenge
+
+---
+
+```cpp
+        char c = str[i];
+```
+
+👉 Current character pick kiya
+
+---
+
+```cpp
+        string nextstr = str.substr(0,i) + str.substr(i+1,n-i-1);
+```
+
+👉 Yeh IMPORTANT line hai:
+
+* `str.substr(0,i)` → i se pehle ka part
+* `str.substr(i+1,n-i-1)` → i ke baad ka part
+
+👉 Matlab: **current character hata diya**
+
+Example:
+
+```
+str = "abc", i = 1
+
+→ "a" + "c" = "ac"
+```
+
+---
+
+```cpp
+        perm(nextstr, ans + c);
+```
+
+👉 Recursive call:
+
+* next string bhejo
+* answer me current char add karo
+
+---
+
+## Final Output
+
+```
+abc
+acb
+bac
+bca
+cab
+cba
+```
+
+---
+
+## 🔥 Why this works?
+
+* Har level pe ek character fix karte hain
+* Baaki ke liye same problem solve karte hain
+* Ye divide-and-conquer + backtracking ka combo hai
+
+---
+
+Agar chaho to next step me mai iska **recursion tree draw karke aur visualize kara sakta hoon** — wo tumhari understanding aur strong karega 🚀
