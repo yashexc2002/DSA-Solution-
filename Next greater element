@@ -1,0 +1,133 @@
+Achha, ab hum same concept ko main() function ke saath complete program bana dete hain — taaki tu direct run karke output dekh sake 👇
+
+1. DSA Topic Used
+
+Stack (Monotonic Stack)
+
+👉 Same concept: stack mein sirf useful (bade) elements rakhte hain
+👉 Har element ke liye next greater efficiently nikaalte hain
+
+2. Intuition
+
+Story yaad hai 👇
+Tum right side dekh rahe ho aur stack tumhe batata hai:
+
+👉 “Bhai, ye raha tumse bada banda!”
+
+Aur agar koi nahi mila:
+👉 “-1 le lo 😅”
+
+3. Approach
+Function banaya nextGreaterElement
+main() mein input liya
+function call kiya
+output print kiya
+4. Flowchart Style Explanation
+Start
+ ↓
+Input n
+ ↓
+Input array
+ ↓
+Function call (NGE)
+ ↓
+Result print
+ ↓
+End
+5. Pseudocode
+main():
+    input n
+    input array
+
+    result = nextGreaterElement(array)
+
+    print result
+6. C++ Implementation (with main function)
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to find Next Greater Element
+vector<int> nextGreaterElement(vector<int>& arr) {
+    int n = arr.size();
+    vector<int> result(n);
+    stack<int> st;
+
+    for(int i = n - 1; i >= 0; i--) {
+        while(!st.empty() && st.top() <= arr[i]) {
+            st.pop();
+        }
+
+        if(st.empty()) {
+            result[i] = -1;
+        } else {
+            result[i] = st.top();
+        }
+
+        st.push(arr[i]);
+    }
+
+    return result;
+}
+
+int main() {
+    int n;
+    cout << "Enter size: ";
+    cin >> n;
+
+    vector<int> arr(n);
+    cout << "Enter elements: ";
+    
+    for(int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+
+    // function call
+    vector<int> ans = nextGreaterElement(arr);
+
+    cout << "Next Greater Elements: ";
+    for(int i = 0; i < n; i++) {
+        cout << ans[i] << " ";
+    }
+
+    return 0;
+}
+🔍 Line-by-Line (Main Function)
+int n;
+cin >> n;
+
+👉 size input le rahe hain
+
+vector<int> arr(n);
+
+👉 array banaya
+
+for(int i = 0; i < n; i++)
+    cin >> arr[i];
+
+👉 user se elements input
+
+vector<int> ans = nextGreaterElement(arr);
+
+👉 function call kiya
+
+for(int i = 0; i < n; i++)
+    cout << ans[i] << " ";
+
+👉 result print kar diya
+
+🔥 Example Run
+
+Input:
+
+4
+4 5 2 10
+
+Output:
+
+5 10 10 -1
+
+Agar tu ready hai next level ke liye, main tujhe:
+👉 Next Greater Element Circular
+👉 ya Stock Span Problem (interview favourite)
+
+bhi isi tarah story + intuition se samjha deta hoon 😄
