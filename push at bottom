@@ -1,0 +1,36 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+
+void pushbot(stack<int> &s,int val){
+    if(s.empty()){
+        s.push(val);
+        return;
+    }
+
+    int temp = s.top();
+    s.pop();
+    pushbot(s,val);
+    s.push(temp);
+}
+int main(){
+    stack<int> s;
+    s.push(1);
+    s.push(2);
+    int a;
+    cout<<"Enter the number that you want to add in list"<<endl;
+
+    cin>>a;
+    pushbot(s,a);
+
+    while(!s.empty()){
+        cout<<s.top()<<" ";
+        s.pop();
+    }
+
+    cout<<endl;
+
+    return 0;
+}
