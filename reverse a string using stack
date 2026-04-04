@@ -1,0 +1,201 @@
+Chalo isko ekdum simple tareeke se samajhte hain 😄
+Socho tumhare paas ek **box (stack)** hai jisme tum cheezein daalte ho… aur jo sabse last mein dala wahi sabse pehle bahar aata hai.
+
+---
+
+## 1. DSA Topic Used
+
+### Stack (LIFO - Last In First Out)
+
+* Stack ek aisa data structure hai jahan:
+
+  * Jo element **last mein push hua**, woh **sabse pehle pop hota hai**
+* Isko bolte hain: **LIFO (Last In First Out)**
+
+👉 Example:
+
+```
+Push: Y → a → s → h
+Top: h
+
+Pop: h → s → a → Y
+```
+
+---
+
+## 2. Intuition (Story Time 🧠)
+
+Ek chhoti si story 😄
+
+Tumne ek stack of plates banaya:
+
+* Sabse pehle rakhi: Y
+* phir a
+* phir s
+* phir h
+
+Ab jab tum plates uthate ho:
+
+* sabse pehle h niklegi
+* phir s
+* phir a
+* phir Y
+
+👉 Matlab automatically string reverse ho gayi!
+
+---
+
+## 3. Approach
+
+Step-by-step kya kar rahe hain:
+
+1. Ek empty stack banaya
+2. String ke saare characters stack me push kiye
+3. Stack se ek-ek karke pop kiya
+4. Pop karte waqt new string (ans) me add kiya
+5. Final ans = reversed string
+
+---
+
+## 4. Flowchart Style Explanation
+
+```
+Start
+   ↓
+Take input string "Yash"
+   ↓
+Create empty stack
+   ↓
+Push all characters into stack
+   ↓
+Stack top = h
+   ↓
+Pop → add to ans → "h"
+   ↓
+Pop → add → "hs"
+   ↓
+Pop → add → "hsa"
+   ↓
+Pop → add → "hsaY"
+   ↓
+Return ans
+   ↓
+Print result
+   ↓
+End
+```
+
+---
+
+## 5. Pseudocode
+
+```
+function rev(str):
+    create empty string ans
+    create stack s
+
+    for each character in str:
+        push character into stack
+
+    while stack is not empty:
+        top = stack top
+        add top to ans
+        pop from stack
+
+    return ans
+```
+
+---
+
+## 6. C++ Implementation (Line-by-Line Explanation 🔍)
+
+```cpp
+string rev(string str){
+```
+
+👉 Function banaya jo string ko reverse karega
+
+```cpp
+    string ans;
+```
+
+👉 Empty string jisme result store hoga
+
+```cpp
+    stack<char> s;
+```
+
+👉 Ek stack banaya characters store karne ke liye
+
+---
+
+```cpp
+    for(int i = 0; i < str.size(); i++){
+        s.push(str[i]);
+    }
+```
+
+👉 Har character ko stack me push kar diya
+👉 Example: Y → a → s → h
+
+---
+
+```cpp
+    while(!s.empty()){
+```
+
+👉 Jab tak stack empty nahi hota tab tak loop chalega
+
+```cpp
+        char top = s.top();
+```
+
+👉 Stack ka top element nikala (sabse last wala)
+
+```cpp
+        ans += top;
+```
+
+👉 Usko ans me add kiya
+
+```cpp
+        s.pop();
+```
+
+👉 Stack se remove kar diya
+
+---
+
+```cpp
+    return ans;
+```
+
+👉 Final reversed string return ki
+
+---
+
+```cpp
+int main(){
+    string str = "Yash";
+    cout << rev(str) << endl;
+    return 0;
+}
+```
+
+👉 Function call hua → output:
+
+```
+hsaY
+```
+
+---
+
+## 🔥 Final Insight
+
+* Stack use karte hi reverse automatic ho jata hai
+* Time Complexity: **O(n)**
+* Space Complexity: **O(n)** (stack use ho raha hai)
+
+---
+
+Agar chaho toh next step me main tumhe **without stack (two pointer method)** bhi sikha sakta hoon — wo interview me zyada powerful hota hai 🚀
