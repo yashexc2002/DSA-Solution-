@@ -1,0 +1,169 @@
+Chalo Yashu 👇 ab isko ekdum simple story + DSA style me samajhte hain.
+
+---
+
+## 1. DSA Topic Used
+
+**Binary Tree Traversal (Depth First Search - DFS)**
+
+👉 Tree traversal ka matlab hota hai: tree ke sab nodes ko ek order me visit karna.
+
+Preorder traversal me rule hota hai:
+
+👉 **Root → Left → Right** ([GeeksforGeeks][1])
+
+Matlab:
+
+* Pehle current node
+* Fir left subtree
+* Fir right subtree
+
+---
+
+## 2. Intuition (Story 🔥)
+
+Soch ek family tree hai 👨‍👩‍👧
+
+Tum ghar ke head ho (root node)
+
+Rule:
+
+1. Sabse pehle **tum khud introduce karoge**
+2. Fir **left wale bacche se miloge**
+3. Fir **right wale bacche se miloge**
+
+Example tree:
+
+```
+        1
+       / \
+      2   3
+```
+
+Preorder traversal:
+👉 1 → 2 → 3
+
+---
+
+## 3. Approach
+
+Step by step:
+
+1. Agar node NULL hai → kuch nahi karo
+2. Current node ko print/store karo
+3. Left subtree pe recursion call karo
+4. Right subtree pe recursion call karo
+
+---
+
+## 4. Flowchart Style Explanation
+
+```
+Start
+  ↓
+Check: node == NULL ?
+  ↓ Yes → Return
+  ↓ No
+Print node value
+  ↓
+Go to left child
+  ↓
+Go to right child
+  ↓
+End
+```
+
+---
+
+## 5. Pseudocode
+
+```
+function preorder(node):
+    if node == NULL:
+        return
+
+    print(node.data)
+
+    preorder(node.left)
+    preorder(node.right)
+```
+
+---
+
+## 6. C++ Implementation (with line-by-line meaning)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Tree ka structure
+struct Node {
+    int data;          // value store karega
+    Node* left;        // left child
+    Node* right;       // right child
+
+    Node(int val) {    // constructor
+        data = val;
+        left = right = NULL;
+    }
+};
+
+// Preorder function
+void preorder(Node* root) {
+
+    // Agar node exist nahi karta
+    if (root == NULL) return;
+
+    // Step 1: current node visit karo
+    cout << root->data << " ";
+
+    // Step 2: left subtree
+    preorder(root->left);
+
+    // Step 3: right subtree
+    preorder(root->right);
+}
+
+int main() {
+    // Tree banate hain
+    Node* root = new Node(1);   // root
+    root->left = new Node(2);   // left child
+    root->right = new Node(3);  // right child
+
+    preorder(root); // function call
+
+    return 0;
+}
+```
+
+---
+
+## Code Explanation (line by line simple 🔍)
+
+* `struct Node` → tree ka ek node define kar raha hai
+
+* `data` → value store karega
+
+* `left/right` → pointers for children
+
+* `preorder(root)`:
+
+  * `if (root == NULL)` → base case (stop)
+  * `cout << root->data` → sabse pehle current node print
+  * `preorder(root->left)` → left side jao
+  * `preorder(root->right)` → right side jao
+
+---
+
+## Final Summary 🧠
+
+👉 Preorder = **Root → Left → Right**
+👉 DFS traversal hai
+👉 Mostly recursion se solve hota hai
+👉 Time Complexity = **O(n)** (har node ek baar visit hota hai) ([GeeksforGeeks][1])
+
+---
+
+Agar tu bole to mai iska **iterative (stack wala)** version bhi samjha dunga (interview me important hota hai 🚀)
+
+[1]: https://www.geeksforgeeks.org/preorder-traversal-of-binary-tree/?utm_source=chatgpt.com "Preorder Traversal of Binary Tree - GeeksforGeeks"
