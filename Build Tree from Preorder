@@ -1,0 +1,263 @@
+Chalo Yashu, is problem ko ek simple story ke through samajhte hain 👇
+
+---
+
+## 1. DSA Topic Used
+
+**Binary Tree + Recursion**
+
+👉 Binary Tree:
+
+* Har node ke 2 bacche ho sakte hain: left aur right.
+
+👉 Preorder Traversal:
+
+* Order hota hai:
+  **Root → Left → Right**
+
+👉 Recursion:
+
+* Function khud ko baar-baar call karta hai jab tak kaam complete na ho jaye.
+
+---
+
+## 2. Intuition
+
+### 🧠 Sochne ka tareeka:
+
+Preorder ka matlab:
+
+* Sabse pehle root milta hai
+* Phir left subtree
+* Phir right subtree
+
+### 🎯 Key Idea:
+
+Agar hum preorder array ko left se right padhen:
+
+* Pehla element = **root**
+* Uske baad wale elements:
+
+  * kuch left subtree ke honge
+  * kuch right subtree ke honge
+
+👉 Problem:
+Hume kaise pata chale kaun left ka hai aur kaun right ka?
+
+### 🔥 Trick:
+
+Hum **range (min, max)** maintain karenge
+
+---
+
+### 🧒 Story:
+
+Socho ek king hai 👑 (root)
+
+* Uska rule:
+
+  * Left wale sab usse **chhote** hone chahiye
+  * Right wale sab usse **bade**
+
+Ab hum ek guard banate hain 🚓:
+
+* Jo check karega kaun allowed hai range mein
+
+---
+
+## 3. Approach
+
+### Step-by-step:
+
+1. Ek global index `i = 0` rakho
+
+2. Recursive function banao:
+
+   ```
+   build(min, max)
+   ```
+
+3. Agar:
+
+   * `i >= size` → return NULL
+   * current value range ke bahar hai → return NULL
+
+4. Node banao:
+
+   ```
+   root = preorder[i]
+   i++
+   ```
+
+5. Left subtree:
+
+   ```
+   build(min, root->val)
+   ```
+
+6. Right subtree:
+
+   ```
+   build(root->val, max)
+   ```
+
+---
+
+## 4. Flowchart Style Explanation
+
+```
+Start
+  ↓
+Take preorder[i]
+  ↓
+Check: value in (min, max)?
+  ↓ NO → return NULL
+  ↓ YES
+Create node
+  ↓
+i++
+  ↓
+Build Left (min, node->val)
+  ↓
+Build Right (node->val, max)
+  ↓
+Return node
+```
+
+---
+
+## 5. Pseudocode
+
+```
+i = 0
+
+function build(preorder, min, max):
+    if i >= size:
+        return NULL
+
+    if preorder[i] < min OR preorder[i] > max:
+        return NULL
+
+    node = new Node(preorder[i])
+    i++
+
+    node.left = build(preorder, min, node.val)
+    node.right = build(preorder, node.val, max)
+
+    return node
+```
+
+---
+
+## 6. C++ Implementation
+
+```cpp
+class Solution {
+public:
+    int i = 0;  // pointer to track preorder
+
+    TreeNode* build(vector<int>& preorder, int minVal, int maxVal) {
+        // Agar array khatam ho gaya
+        if (i >= preorder.size()) return NULL;
+
+        // Agar value allowed range mein nahi hai
+        if (preorder[i] < minVal || preorder[i] > maxVal)
+            return NULL;
+
+        // Node create karo
+        TreeNode* root = new TreeNode(preorder[i]);
+        i++;  // next element pe move
+
+        // Left subtree banao (chhoti values)
+        root->left = build(preorder, minVal, root->val);
+
+        // Right subtree banao (badi values)
+        root->right = build(preorder, root->val, maxVal);
+
+        return root;
+    }
+
+    TreeNode* bstFromPreorder(vector<int>& preorder) {
+        return build(preorder, INT_MIN, INT_MAX);
+    }
+};
+```
+
+---
+
+## 🔍 Code Line-by-Line Samjho:
+
+```cpp
+int i = 0;
+```
+
+👉 Yeh pointer batata hai ki abhi preorder ka kaunsa element use ho raha hai
+
+---
+
+```cpp
+if (i >= preorder.size()) return NULL;
+```
+
+👉 Agar saare elements use ho gaye → kuch nahi bacha → NULL
+
+---
+
+```cpp
+if (preorder[i] < minVal || preorder[i] > maxVal)
+    return NULL;
+```
+
+👉 Agar current value allowed range mein nahi hai → yeh node yahan nahi ban sakta
+
+---
+
+```cpp
+TreeNode* root = new TreeNode(preorder[i]);
+```
+
+👉 New node bana rahe hain current value se
+
+---
+
+```cpp
+i++;
+```
+
+👉 Next element pe move
+
+---
+
+```cpp
+root->left = build(preorder, minVal, root->val);
+```
+
+👉 Left subtree:
+
+* Sirf chhoti values allowed
+
+---
+
+```cpp
+root->right = build(preorder, root->val, maxVal);
+```
+
+👉 Right subtree:
+
+* Sirf badi values allowed
+
+---
+
+## 🧩 Why This Works?
+
+* Preorder hume order deta hai
+* Range hume structure deta hai
+* Dono milke tree banate hain efficiently
+
+⏱ Time Complexity: **O(n)**
+💾 Space: **O(h)** (recursion stack)
+
+---
+
+Agar tu chahe toh next step mein:
+👉 Dry run karte hain ek example pe (bahut helpful hota hai interview ke liye)
