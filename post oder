@@ -1,0 +1,153 @@
+Samajh gaya — tum **Postorder Traversal** puch rahe ho (Binary Tree ka traversal). Chalo isko ekdum simple tareeke se samajhte hain 👇
+
+---
+
+## 1. DSA Topic Used
+
+**Tree Traversal (Postorder Traversal)**
+
+Tree traversal ka matlab hota hai tree ke har node ko visit karna ek specific order me.
+
+**Postorder Traversal ka rule:**
+
+```
+Left → Right → Root
+```
+
+👉 Matlab:
+
+* Pehle left subtree
+* Phir right subtree
+* Sabse last me root node
+
+---
+
+## 2. Intuition (Story Mode 😄)
+
+Socho tum ek ghar me ho jisme:
+
+* Left room
+* Right room
+* Aur beech me hall (root)
+
+👉 Rule hai:
+“Jab tak dono rooms check nahi karte, tab tak hall me nahi aana!”
+
+Example:
+
+```
+        1
+       / \
+      2   3
+```
+
+Postorder:
+
+* Pehle 2 (left)
+* Phir 3 (right)
+* Phir 1 (root)
+
+👉 Answer: **2 3 1**
+
+---
+
+## 3. Approach
+
+1. Agar node NULL hai → kuch mat karo
+2. Recursively left subtree traverse karo
+3. Recursively right subtree traverse karo
+4. Node ko print karo
+
+---
+
+## 4. Flowchart Style Explanation
+
+```
+Start
+  ↓
+Check node NULL?
+  ↓ Yes → Return
+  ↓ No
+Go Left
+  ↓
+Go Right
+  ↓
+Print Node
+  ↓
+Return
+```
+
+---
+
+## 5. Pseudocode
+
+```
+function postorder(node):
+    if node == NULL:
+        return
+    
+    postorder(node.left)
+    postorder(node.right)
+    print node.data
+```
+
+---
+
+## 6. C++ Implementation (Line-by-line samjho 👇)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Tree node structure
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        data = val;       // node ka value store kar rahe hain
+        left = NULL;      // left child initially NULL
+        right = NULL;     // right child initially NULL
+    }
+};
+
+// Postorder function
+void postorder(Node* root) {
+    if (root == NULL) {
+        return;  // agar node nahi hai to wapas chale jao
+    }
+
+    postorder(root->left);   // left subtree pe jao
+    postorder(root->right);  // right subtree pe jao
+    cout << root->data << " "; // last me root print karo
+}
+
+int main() {
+    // Tree bana rahe hain
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+
+    postorder(root);  // function call
+
+    return 0;
+}
+```
+
+---
+
+## 🔥 Final Summary
+
+* Postorder = **Left → Right → Root**
+* Recursive approach sabse simple hai
+* Use case: tree delete karna, expression tree evaluate karna
+
+---
+
+Agar chaho to next step me:
+
+* Iterative version (stack se)
+* Ya LeetCode problem (like "Binary Tree Postorder Traversal")
+
+bhi kara deta hoon 👍
