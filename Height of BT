@@ -1,0 +1,171 @@
+Theek hai, ab pura **complete working C++ code** de deta hoon — lekin saath me har line ka matlab bhi samjhaunga taaki concept solid ho 💪
+
+---
+
+## 6. C++ Implementation (Full Code)
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    // constructor
+    Node(int val) {
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+// function to calculate height
+int height(Node* root) {
+
+    // agar tree khaali hai
+    if (root == NULL) {
+        return -1;  // edge count ke liye
+    }
+
+    // left subtree ki height
+    int leftHeight = height(root->left);
+
+    // right subtree ki height
+    int rightHeight = height(root->right);
+
+    // max + 1 (current node)
+    return max(leftHeight, rightHeight) + 1;
+}
+
+int main() {
+
+    // tree banana manually
+    /*
+            1
+           / \
+          2   3
+         /
+        4
+    */
+
+    Node* root = new Node(1);
+
+    root->left = new Node(2);
+    root->right = new Node(3);
+
+    root->left->left = new Node(4);
+
+    // height calculate karo
+    cout << "Height of Binary Tree: " << height(root);
+
+    return 0;
+}
+```
+
+---
+
+## 🔍 Line-by-line Explanation
+
+### Node Structure
+
+```cpp
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+};
+```
+
+👉 Har node me:
+
+* value (data)
+* left child pointer
+* right child pointer
+
+---
+
+```cpp
+Node(int val)
+```
+
+👉 Constructor → jab node banega tab value assign hogi
+
+---
+
+### Base Case
+
+```cpp
+if (root == NULL)
+    return -1;
+```
+
+👉 Agar node exist nahi karta → height = -1 (edges definition)
+
+---
+
+### Recursive Calls
+
+```cpp
+int leftHeight = height(root->left);
+```
+
+👉 Left subtree ki height nikaal rahe ho
+
+```cpp
+int rightHeight = height(root->right);
+```
+
+👉 Right subtree ki height nikaal rahe ho
+
+---
+
+### Final Answer
+
+```cpp
+return max(leftHeight, rightHeight) + 1;
+```
+
+👉 Jo side zyada deep hai usko lo + current node add karo
+
+---
+
+### Tree Creation
+
+```cpp
+Node* root = new Node(1);
+```
+
+👉 Root node bana
+
+```cpp
+root->left = new Node(2);
+root->right = new Node(3);
+```
+
+👉 Children attach kiye
+
+```cpp
+root->left->left = new Node(4);
+```
+
+👉 Aur deeper node banaya
+
+---
+
+## 🧠 Quick Story Recap
+
+Tum ek explorer ho 🧭
+Har branch me jaake depth check karte ho
+
+* Left jao → depth milegi
+* Right jao → depth milegi
+* Jo zyada deep → wahi final answer
+
+---
+
+Agar next level jaana hai 🔥
+👉 Iterative (BFS using queue) approach bhi karte hain
+👉 Ya tum LeetCode ka specific problem bhejo (main usko break kar dunga step by step)
