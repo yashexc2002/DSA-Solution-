@@ -1,0 +1,210 @@
+Theek hai — ab main tumhe **complete working code** deta hoon (with structure + main function), aur har important line ka matlab bhi samjhata hoon 👇
+
+---
+
+# 🌳 Full C++ Code: Diameter of Binary Tree
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Tree Node structure
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+
+    // constructor
+    TreeNode(int x) {
+        val = x;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+class Solution {
+public:
+    int diameter = 0; // final answer store karega
+
+    int dfs(TreeNode* root) {
+        // agar node NULL hai → height 0
+        if (root == NULL)
+            return 0;
+
+        // left subtree ki height
+        int left = dfs(root->left);
+
+        // right subtree ki height
+        int right = dfs(root->right);
+
+        // diameter update (longest path through this node)
+        diameter = max(diameter, left + right);
+
+        // current node ki height return karo
+        return 1 + max(left, right);
+    }
+
+    int diameterOfBinaryTree(TreeNode* root) {
+        dfs(root); // DFS start
+        return diameter;
+    }
+};
+
+int main() {
+    /*
+        Tree banate hain:
+
+               1
+              / \
+             2   3
+            /
+           4
+    */
+
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+    root->left->left = new TreeNode(4);
+
+    Solution obj;
+    int result = obj.diameterOfBinaryTree(root);
+
+    cout << "Diameter of tree: " << result << endl;
+
+    return 0;
+}
+```
+
+---
+
+# 🔍 Line-by-Line Easy Explanation (Hinglish)
+
+### Tree Structure
+
+```cpp
+struct TreeNode
+```
+
+👉 Yeh ek node define karta hai jisme:
+
+* value
+* left pointer
+* right pointer
+
+---
+
+### Constructor
+
+```cpp
+TreeNode(int x)
+```
+
+👉 Jab new node banate hain → value set hoti hai aur left/right NULL
+
+---
+
+### Diameter Variable
+
+```cpp
+int diameter = 0;
+```
+
+👉 Yeh global answer store karega (max path)
+
+---
+
+### DFS Function
+
+```cpp
+int dfs(TreeNode* root)
+```
+
+👉 Yeh function:
+
+* height return karta hai
+* diameter update karta hai
+
+---
+
+### Base Case
+
+```cpp
+if (root == NULL) return 0;
+```
+
+👉 Agar node nahi hai → height 0
+
+---
+
+### Left & Right Height
+
+```cpp
+int left = dfs(root->left);
+int right = dfs(root->right);
+```
+
+👉 Recursively depth nikaal rahe hain
+
+---
+
+### Diameter Update
+
+```cpp
+diameter = max(diameter, left + right);
+```
+
+👉 Yeh sabse important line hai
+
+👉 Current node se longest path =
+**left height + right height**
+
+---
+
+### Height Return
+
+```cpp
+return 1 + max(left, right);
+```
+
+👉 Parent ko height bhej rahe hain
+
+---
+
+### Main Function
+
+```cpp
+TreeNode* root = new TreeNode(1);
+```
+
+👉 Tree manually bana rahe hain
+
+---
+
+### Output
+
+```cpp
+cout << result;
+```
+
+👉 Final diameter print
+
+---
+
+# 🧠 Final Understanding
+
+👉 Har node pe:
+
+* left depth + right depth = possible diameter
+
+👉 DFS ek hi traversal me:
+
+* height bhi deta hai
+* diameter bhi calculate karta hai
+
+---
+
+Agar tum next level jaana chahte ho, main tumhe:
+👉 **LeetCode version (with constraints)**
+👉 ya **2 DFS trick (graph wala approach)**
+
+bhi sikha sakta hoon 🚀
